@@ -6,6 +6,17 @@ angular.module('todoApp', [])
       {text:'build an AngularJS app', done:false}];
  
     todoList.addTodo = function() {
+      
+      // TODO: I can encapsulate this in one method
+      if(typeof todoList.todoText == 'undefined' || todoList.todoText == ''){
+        alert('Task couldn\'t be empty');
+        return false;
+      }
+      if(todoList.todoText.length < 6 ){
+        alert('Task needs to have more than 5 characters!');
+        return false;
+      }
+
       todoList.todos.push({text:todoList.todoText, done:false});
       todoList.todoText = '';
     };
@@ -19,6 +30,10 @@ angular.module('todoApp', [])
     };
  
     todoList.archive = function() {
+      if(!confirm("Do you really wish to archive?")){
+        return false;
+      }
+     
       var oldTodos = todoList.todos;
       todoList.todos = [];
       angular.forEach(oldTodos, function(todo) {
